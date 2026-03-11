@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIFAT STUDIO - FF Tournament</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f0c29;
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            color: white;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #ff4b2b;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid #ff4b2b;
+        }
+        h2 { text-align: center; color: #ff4b2b; text-transform: uppercase; margin-bottom: 10px; }
+        p { text-align: center; font-size: 14px; margin-bottom: 20px; color: #ccc; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #ff4b2b; }
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            background: #222;
+            color: white;
+            box-sizing: border-box;
+        }
+        .player-box {
+            border: 1px solid #444;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #ff4b2b;
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover { background: #ff416c; transform: scale(1.02); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>SIFAT STUDIO</h2>
+    <p>FF Tournament Registration</p>
+    
+    <form id="regForm">
+        <div class="input-group">
+            <label>Team Name:</label>
+            <input type="text" id="teamName" placeholder="Enter Team Name" required>
+        </div>
+        <div class="input-group">
+            <label>Team Logo URL:</label>
+            <input type="text" id="teamLogo" placeholder="Paste Logo Image Link">
+        </div>
+        <div class="input-group">
+            <label>Leader WhatsApp No:</label>
+            <input type="number" id="leaderWA" placeholder="017xxxxxxxx" required>
+        </div>
+
+        <hr style="border: 0.5px solid #444; margin: 20px 0;">
+
+        <div id="playersList">
+            <div class="player-box">
+                <label>Player 1 (Leader):</label>
+                <input type="text" id="p1Name" placeholder="Name" required style="margin-bottom: 5px;">
+                <input type="text" id="p1UID" placeholder="UID" required>
+            </div>
+            <div class="player-box">
+                <label>Player 2:</label>
+                <input type="text" id="p2Name" placeholder="Name" required style="margin-bottom: 5px;">
+                <input type="text" id="p2UID" placeholder="UID" required>
+            </div>
+            <div class="player-box">
+                <label>Player 3:</label>
+                <input type="text" id="p3Name" placeholder="Name" required style="margin-bottom: 5px;">
+                <input type="text" id="p3UID" placeholder="UID" required>
+            </div>
+            <div class="player-box">
+                <label>Player 4:</label>
+                <input type="text" id="p4Name" placeholder="Name" required style="margin-bottom: 5px;">
+                <input type="text" id="p4UID" placeholder="UID" required>
+            </div>
+            <div class="player-box">
+                <label>Player 5 (Sub):</label>
+                <input type="text" id="p5Name" placeholder="Name" style="margin-bottom: 5px;">
+                <input type="text" id="p5UID" placeholder="UID">
+            </div>
+        </div>
+
+        <button type="button" onclick="sendToWhatsApp()">Submit Registration</button>
+    </form>
+</div>
+
+<script>
+    function sendToWhatsApp() {
+        let number = "+8801793075655";
+
+        let teamName = document.getElementById('teamName').value;
+        let teamLogo = document.getElementById('teamLogo').value;
+        let leaderWA = document.getElementById('leaderWA').value;
+
+        let p1 = `P1: ${document.getElementById('p1Name').value} (UID: ${document.getElementById('p1UID').value})`;
+        let p2 = `P2: ${document.getElementById('p2Name').value} (UID: ${document.getElementById('p2UID').value})`;
+        let p3 = `P3: ${document.getElementById('p3Name').value} (UID: ${document.getElementById('p3UID').value})`;
+        let p4 = `P4: ${document.getElementById('p4Name').value} (UID: ${document.getElementById('p4UID').value})`;
+        let p5 = `P5: ${document.getElementById('p5Name').value} (UID: ${document.getElementById('p5UID').value})`;
+
+        let message = `*NEW REGISTRATION - SIFAT STUDIO*%0A%0A` +
+            `*Team:* ${teamName}%0A` +
+            `*Logo:* ${teamLogo}%0A` +
+            `*WhatsApp:* ${leaderWA}%0A%0A` +
+            `*Players List:*%0A${p1}%0A${p2}%0A${p3}%0A${p4}%0A${p5}`;
+
+        let url = `https://wa.me/${number}?text=${message}`;
+        window.open(url, '_blank').focus();
+    }
+</script>
+
+</body>
+</html>
