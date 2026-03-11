@@ -3,180 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIFAT STUDIO | FF Tournament</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>SIFAT STUDIO - FF Tournament</title>
     <style>
         :root {
-            --primary-color: #ff4b2b;
-            --secondary-color: #ff416c;
-            --bg-color: #050505;
-            --card-bg: #1a1a1a;
+            --primary: #ff8c00;
+            --secondary: #ff4500;
+            --bg: #0a0a0a;
+            --card: #161616;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            background-image: radial-gradient(circle, #24243e 0%, #0f0c29 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
             color: white;
+            margin: 0;
             display: flex;
             justify-content: center;
             padding: 20px;
-            margin: 0;
         }
 
+        /* Ad Popup Style */
+        #adModal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .ad-content {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid var(--primary);
+            max-width: 300px;
+        }
+        .ad-content img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
+        .close-btn {
+            background: var(--primary);
+            border: none; color: white; padding: 10px 20px;
+            cursor: pointer; border-radius: 5px; font-weight: bold;
+        }
+
+        /* Form Style */
         .container {
-            background: var(--card-bg);
+            width: 100%;
+            max-width: 500px;
+            background: var(--card);
             padding: 25px;
             border-radius: 20px;
-            box-shadow: 0 0 30px rgba(255, 75, 43, 0.3);
-            width: 100%;
-            max-width: 450px;
-            border: 2px solid var(--primary-color);
-        }
-
-        /* Logo Design */
-        .logo-area {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .logo-icon {
-            font-size: 50px;
-            color: var(--primary-color);
-            text-shadow: 0 0 15px var(--primary-color);
-        }
-        .logo-text {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 5px 0;
-        }
-
-        h3 { text-align: center; font-size: 16px; color: #aaa; text-transform: uppercase; margin-bottom: 25px; }
-
-        .input-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--primary-color); }
-        
-        input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.2);
             border: 1px solid #333;
-            background: #252525;
-            color: white;
-            box-sizing: border-box;
-            transition: 0.3s;
-        }
-        input:focus { border-color: var(--secondary-color); outline: none; background: #333; }
-
-        .player-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 4px solid var(--primary-color);
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 5px;
         }
 
-        .btn-submit {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
-            transition: 0.3s;
-            margin-top: 10px;
-        }
-        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255, 65, 108, 0.6); }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header img { width: 120px; border-radius: 50%; border: 3px solid var(--primary); }
+        .header h1 { color: var(--primary); margin: 10px 0; font-size: 24px; text-transform: uppercase; }
 
-        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #666; }
+        .input-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #ccc; font-size: 14px; }
+        input {
+            width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333;
+            background: #222; color: white; box-sizing: border-box;
+        }
+        input:focus { border-color: var(--primary); outline: none; }
+
+        .player-box {
+            border: 1px solid #333; padding: 15px; border-radius: 10px;
+            margin-bottom: 20px; background: rgba(255,255,255,0.02);
+        }
+        .player-box h3 { margin-top: 0; font-size: 16px; color: var(--primary); border-bottom: 1px solid #333; padding-bottom: 5px; }
+
+        .submit-btn {
+            width: 100%; padding: 15px; background: linear-gradient(to right, var(--primary), var(--secondary));
+            border: none; color: white; font-weight: bold; font-size: 18px;
+            border-radius: 10px; cursor: pointer; transition: 0.3s;
+        }
+        .submit-btn:hover { transform: scale(1.02); opacity: 0.9; }
+
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="logo-area">
-        <div class="logo-icon"><i class="fas fa-gamepad"></i></div>
-        <div class="logo-text">SIFAT STUDIO</div>
+<div id="adModal">
+    <div class="ad-content">
+        <img src="https://via.placeholder.com/300x150?text=Your+Ad+Here" alt="Advertisement">
+        <p style="color: #fff;">SIFAT STUDIO মেগা টুর্নামেন্ট! 🔥<br>
+    রেজিস্ট্রেশন করলেই থাকছে আকর্ষণীয় পুরস্কার। <br>
+    এখনি নিচের CLOSE বাটনে ক্লিক করে ফর্মটি পূরণ করো!।</p>
+        <button class="close-btn" onclick="closeAd()">CLOSE</button>
     </div>
-    <h3>Registration Form</h3>
-    
+</div>
+
+<div class="container">
+    <div class="header">
+        <img src="https://ibb.co.com/F4LXtZKq" alt="SIFAT STUDIO">
+        <h1>SIFAT STUDIO</h1>
+        <p style="color: #777;">Free Fire Tournament Registration</p>
+    </div>
+
     <form id="regForm">
         <div class="input-group">
-            <label><i class="fas fa-users"></i> Team Name</label>
-            <input type="text" id="teamName" placeholder="Enter Team Name" required>
+            <label>Team Name :</label>
+            <input type="text" id="teamName" required>
         </div>
-        
+
         <div class="input-group">
-            <label><i class="fab fa-whatsapp"></i> Leader WhatsApp No</label>
-            <input type="number" id="leaderWA" placeholder="017XXXXXXXX" required>
+            <label>Team Logo (Upload from Gallery) :</label>
+            <input type="file" id="teamLogo" accept="image/*">
         </div>
 
-        <div id="players-container">
-            <div class="player-card">
-                <label>Leader (Player 1)</label>
-                <input type="text" id="p1Name" placeholder="Name" required style="margin-bottom: 8px;">
-                <input type="text" id="p1UID" placeholder="UID" required>
+        <div class="input-group">
+            <label>Team Leader WhatsApp Number :</label>
+            <input type="number" id="leaderWA" placeholder="e.g. 01793075655" required>
+        </div>
+
+        <hr style="border: 0.5px solid #333; margin: 30px 0;">
+
+        <div id="playersContainer">
+            <div class="player-box">
+                <h3>Player - 1 (Leader)</h3>
+                <label>Player Name:</label>
+                <input type="text" id="p1Name" required style="margin-bottom: 10px;">
+                <label>UID:</label>
+                <input type="text" id="p1UID" required>
             </div>
-            <div class="player-card">
-                <label>Player 2</label>
-                <input type="text" id="p2Name" placeholder="Name" required style="margin-bottom: 8px;">
-                <input type="text" id="p2UID" placeholder="UID" required>
+
+            <div class="player-box">
+                <h3>Player - 2</h3>
+                <label>Player Name:</label>
+                <input type="text" id="p2Name" required style="margin-bottom: 10px;">
+                <label>UID:</label>
+                <input type="text" id="p2UID" required>
             </div>
-            <div class="player-card">
-                <label>Player 3</label>
-                <input type="text" id="p3Name" placeholder="Name" required style="margin-bottom: 8px;">
-                <input type="text" id="p3UID" placeholder="UID" required>
+
+            <div class="player-box">
+                <h3>Player - 3</h3>
+                <label>Player Name:</label>
+                <input type="text" id="p3Name" required style="margin-bottom: 10px;">
+                <label>UID:</label>
+                <input type="text" id="p3UID" required>
             </div>
-            <div class="player-card">
-                <label>Player 4</label>
-                <input type="text" id="p4Name" placeholder="Name" required style="margin-bottom: 8px;">
-                <input type="text" id="p4UID" placeholder="UID" required>
+
+            <div class="player-box">
+                <h3>Player - 4</h3>
+                <label>Player Name:</label>
+                <input type="text" id="p4Name" required style="margin-bottom: 10px;">
+                <label>UID:</label>
+                <input type="text" id="p4UID" required>
             </div>
-            <div class="player-card" style="border-left-color: #555;">
-                <label>Player 5 (Substitute)</label>
-                <input type="text" id="p5Name" placeholder="Name" style="margin-bottom: 8px;">
-                <input type="text" id="p5UID" placeholder="UID">
+
+            <div class="player-box">
+                <h3>Player - 5</h3>
+                <label>Player Name:</label>
+                <input type="text" id="p5Name" style="margin-bottom: 10px;">
+                <label>UID:</label>
+                <input type="text" id="p5UID">
             </div>
         </div>
 
-        <button type="button" class="btn-submit" onclick="sendWhatsApp()">
-            <i class="fab fa-whatsapp"></i> SUBMIT TO WHATSAPP
-        </button>
+        <button type="button" class="submit-btn" onclick="sendToWhatsApp()">SUBMIT REGISTRATION</button>
     </form>
-    
-    <footer>Developed by SIFAT STUDIO</footer>
 </div>
 
 <script>
-    function sendWhatsApp() {
+    function closeAd() {
+        document.getElementById('adModal').style.display = 'none';
+    }
+
+    function sendToWhatsApp() {
+        const teamName = document.getElementById('teamName').value;
+        const leaderWA = document.getElementById('leaderWA').value;
         const phone = "8801793075655";
-        const tName = document.getElementById('teamName').value;
-        const lWA = document.getElementById('leaderWA').value;
 
-        const p1 = document.getElementById('p1Name').value + " (UID: " + document.getElementById('p1UID').value + ")";
-        const p2 = document.getElementById('p2Name').value + " (UID: " + document.getElementById('p2UID').value + ")";
-        const p3 = document.getElementById('p3Name').value + " (UID: " + document.getElementById('p3UID').value + ")";
-        const p4 = document.getElementById('p4Name').value + " (UID: " + document.getElementById('p4UID').value + ")";
-        const p5 = document.getElementById('p5Name').value + " (UID: " + document.getElementById('p5UID').value + ")";
+        const p1Name = document.getElementById('p1Name').value;
+        const p1UID = document.getElementById('p1UID').value;
+        
+        const p2Name = document.getElementById('p2Name').value;
+        const p2UID = document.getElementById('p2UID').value;
 
-        if(!tName || !lWA || !document.getElementById('p1Name').value) {
-            alert("Please fill all required fields!");
+        const p3Name = document.getElementById('p3Name').value;
+        const p3UID = document.getElementById('p3UID').value;
+
+        const p4Name = document.getElementById('p4Name').value;
+        const p4UID = document.getElementById('p4UID').value;
+
+        const p5Name = document.getElementById('p5Name').value || "N/A";
+        const p5UID = document.getElementById('p5UID').value || "N/A";
+
+        if(!teamName || !leaderWA || !p1Name || !p1UID) {
+            alert("Please fill the required fields!");
             return;
         }
 
-        const msg = `*--- SIFAT STUDIO REGISTRATION ---*%0A%0A` +
-                    `*Team Name:* ${tName}%0A` +
-                    `*Leader WA:* ${lWA}%0A%0A` +
-                    `*Players:*%0A1. ${p1}%0A2. ${p2}%0A3. ${p3}%0A4. ${p4}%0A5. ${p5}`;
+        const message = `*SIFAT STUDIO - REGISTRATION*%0A` +
+                        `--------------------------%0A` +
+                        `*Team Name:* ${teamName}%0A` +
+                        `*Leader WA:* ${leaderWA}%0A` +
+                        `--------------------------%0A` +
+                        `*Player 1 (L):* ${p1Name} (UID: ${p1UID})%0A` +
+                        `*Player 2:* ${p2Name} (UID: ${p2UID})%0A` +
+                        `*Player 3:* ${p3Name} (UID: ${p3UID})%0A` +
+                        `*Player 4:* ${p4Name} (UID: ${p4UID})%0A` +
+                        `*Player 5:* ${p5Name} (UID: ${p5UID})%0A%0A` +
+                        `_Note: Please send your team logo now._`;
 
-        window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+        const whatsappURL = `https://wa.me/${phone}?text=${message}`;
+        window.open(whatsappURL, '_blank');
     }
 </script>
 
